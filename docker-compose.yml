@@ -1,0 +1,15 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    restart: always
+    environment:
+      POSTGRES_USER: trello-clone-user
+      POSTGRES_PASSWORD: trello-clone-password
+      POSTGRES_DB: trello-clone-db
+    ports:
+      - '5432:5432'
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:
