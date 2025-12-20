@@ -45,7 +45,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - Criar `src/lib/auth/options.ts` com as opções de autenticação.
   - Usar o `PrismaAdapter`.
   - Configurar um ou mais provedores OAuth gratuitos (ex: Google, GitHub).
-- [ ] **Criar a Rota da API de Autenticação**
+- [x] **Criar a Rota da API de Autenticação**
   - Criar `src/app/api/auth/[...nextauth]/route.ts`.
 - [ ] **Criar Páginas de UI para Autenticação**
   - `(auth)/login/page.tsx` com botões de login para os provedores.
