@@ -15,7 +15,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - `bunx --bun shadcn-ui@latest init`
 - [x] **Configurar Variáveis de Ambiente Tipadas**
   - Criar `src/env.ts` usando `@t3-oss/env-nextjs` para validar variáveis de ambiente (DATABASE_URL, NEXTAUTH_SECRET, etc.).
-- [ ] **Estrutura de Pastas**
+- [x] **Estrutura de Pastas**
   - Criar a estrutura de pastas (`components/layout`, `lib/actions`, `lib/db`, etc.) conforme `GEMINI.md`.
 - [x] **Configurar Linter e Formatter**
   - Configurar Biome (ou ESLint/Prettier) e adicionar scripts em `package.json`.
