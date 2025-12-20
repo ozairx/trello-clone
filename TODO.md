@@ -28,7 +28,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
 - [ ] **Escolher Provedor de Banco de Dados Gratuito**
   - Criar uma conta em um serviço com tier gratuito de PostgreSQL (ex: [Supabase](https://supabase.com/), [Neon](https://neon.tech/)).
   - Obter a URL de conexão do banco de dados.
-- [ ] **Definir Schema do Prisma (`prisma/schema.prisma`)**
+- [x] **Definir Schema do Prisma (`prisma/schema.prisma`)**
   - Criar modelo `User` (com `name`, `email`, `image`).
   - Criar modelo `Board` (quadro), com relação para `User`.
   - Criar modelo `List` (lista), com relação para `Board` e campo de `order`.
