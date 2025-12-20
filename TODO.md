@@ -34,7 +34,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - Criar modelo `List` (lista), com relação para `Board` e campo de `order`.
   - Criar modelo `Card` (cartão), com relação para `List` e campos como `title`, `description`, `order`.
   - Adicionar o adapter do NextAuth: `bunx prisma generate`.
-- [ ] **Criar o Singleton do Prisma Client**
+- [x] **Criar o Singleton do Prisma Client**
   - Criar `src/lib/db/index.ts` para instanciar o `PrismaClient` globalmente.
 - [ ] **Executar a Primeira Migração**
   - `bunx prisma migrate dev --name init`
