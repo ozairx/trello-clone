@@ -41,7 +41,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
 
 ## Fase 3: Autenticação
 
-- [ ] **Configurar NextAuth.js**
+- [x] **Configurar NextAuth.js**
   - Criar `src/lib/auth/options.ts` com as opções de autenticação.
   - Usar o `PrismaAdapter`.
   - Configurar um ou mais provedores OAuth gratuitos (ex: Google, GitHub).
