@@ -6,7 +6,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
 
 - [x] **Inicializar o Projeto Next.js com Bun**
   - `bun create next-app . --typescript --tailwind --eslint`
-- [ ] **Configurar `tsconfig.json`**
+- [x] **Configurar `tsconfig.json`**
   - Aplicar as configurações `strict` e `paths` conforme `GEMINI.md`.
 - [ ] **Instalar Dependências**
   - `bun add prisma zod next-auth @auth/prisma-adapter @t3-oss/env-nextjs`
