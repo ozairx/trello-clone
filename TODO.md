@@ -36,7 +36,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - Adicionar o adapter do NextAuth: `bunx prisma generate`.
 - [x] **Criar o Singleton do Prisma Client**
   - Criar `src/lib/db/index.ts` para instanciar o `PrismaClient` globalmente.
-- [ ] **Executar a Primeira Migração**
+- [x] **Executar a Primeira Migração**
   - `bunx prisma migrate dev --name init`
 
 ## Fase 3: Autenticação
