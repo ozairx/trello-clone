@@ -19,9 +19,9 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - Criar a estrutura de pastas (`components/layout`, `lib/actions`, `lib/db`, etc.) conforme `GEMINI.md`.
 - [x] **Configurar Linter e Formatter**
   - Configurar Biome (ou ESLint/Prettier) e adicionar scripts em `package.json`.
-- [ ] **Setup do Prisma**
+- [x] **Setup do Prisma**
   - `bunx prisma init --datasource-provider postgresql`
-  - Conectar ao banco de dados gratuito (ex: Supabase, Neon).
+  - Conectado a um banco de dados local via Docker.
 
 ## Fase 2: Banco de Dados e Modelos
 
