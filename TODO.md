@@ -47,9 +47,9 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - Configurar um ou mais provedores OAuth gratuitos (ex: Google, GitHub).
 - [x] **Criar a Rota da API de Autenticação**
   - Criar `src/app/api/auth/[...nextauth]/route.ts`.
-- [ ] **Criar Páginas de UI para Autenticação**
+- [x] **Criar Páginas de UI para Autenticação**
   - `(auth)/login/page.tsx` com botões de login para os provedores.
-  - Adicionar componentes de UI (botão, card) do `shadcn/ui`.
+  - Adicionar componentes de UI (botão, card) do `shadcn/ui`. Add mais componentes do shadcn/ui conforme for necessário. O layout deve ser semelhante ao do Trello.
 - [ ] **Proteger Rotas com Middleware**
   - Criar `middleware.ts` para redirecionar usuários não autenticados de rotas protegidas (ex: `/dashboard`) para a página de login.
 - [ ] **Componentes de Sessão**
