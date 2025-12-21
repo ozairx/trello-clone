@@ -1524,3 +1524,55 @@ export function trackPageView(url: string) {
 - [Next.js Security Headers](https://nextjs.org/docs/app/api-reference/next-config-js/headers)
 - [Husky Git Hooks](https://typicode.github.io/husky)
 - [GitHub Actions](https://docs.github.com/en/actions)
+
+# Regras para Banco de Dados PostgreSQL
+
+## Convenções de Nomenclatura Obrigatórias
+
+### Bancos de Dados
+- Sempre usar snake_case minúsculo
+- Formato: `nome_projeto_ambiente` (ex: `ecommerce_ambiente`, `gestao_vendas_dev`)
+- Nunca usar espaços ou caracteres especiais
+- Nunca usar maiúsculas
+
+### Tabelas
+- Sempre no singular: `usuario`, `pedido`, `produto`
+- snake_case minúsculo
+- Nomes descritivos e concisos
+
+### Colunas
+- snake_case minúsculo
+- Chave primária: sempre `id`
+- Chaves estrangeiras: `nome_tabela_id` (ex: `usuario_id`, `categoria_id`)
+- Timestamps: `created_at`, `updated_at`
+- Booleanos: prefixo `is_` ou `has_` (ex: `is_active`, `has_discount`)
+
+### Índices
+- Formato: `idx_nome_tabela_coluna` (ex: `idx_usuario_email`)
+
+### Constraints
+- Primary Key: `pk_nome_tabela`
+- Foreign Key: `fk_tabela_origem_tabela_destino`
+- Unique: `uq_nome_tabela_coluna`
+- Check: `chk_nome_tabela_regra`
+
+## Exemplos Práticos
+```sql
+-- ✅ CORRETO
+CREATE DATABASE ecommerce_prod;
+CREATE TABLE usuario (
+    id SERIAL PRIMARY KEY,
+    email VARCHAR(255) NOT NULL,
+    created_at TIMESTAMP DEFAULT NOW()
+);
+
+-- ❌ INCORRETO
+CREATE DATABASE "EcommerceProd";
+CREATE TABLE Usuarios (
+    ID SERIAL PRIMARY KEY,
+    Email VARCHAR(255)
+);
+```
+
+## Regra Geral
+Sempre revisar nomenclaturas antes de executar comandos SQL. Questionar se algo não seguir essas convenções.
