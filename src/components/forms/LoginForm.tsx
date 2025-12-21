@@ -81,7 +81,7 @@ export default function LoginForm() {
                 <Button
                   type="submit"
                   variant="link"
-                  className="w-full underline p-0"
+                  className="w-full underline p-0 cursor-pointer hover:no-underline"
                 >
                   Fazer login (teste)
                 </Button>
