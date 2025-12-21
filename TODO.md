@@ -52,7 +52,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - Adicionar componentes de UI (botão, card) do `shadcn/ui`. Add mais componentes do shadcn/ui conforme for necessário. O layout deve ser semelhante ao do Trello.
 - [x] **Proteger Rotas com Middleware**
   - Criar `middleware.ts` para redirecionar usuários não autenticados de rotas protegidas (ex: `/dashboard`) para a página de login.
-- [ ] **Componentes de Sessão**
+- [x] **Componentes de Sessão**
   - Criar componentes para exibir informações do usuário (avatar, nome) e botões de `login`/`logout`.
 
 ## Fase 4: Funcionalidades Principais (Quadros, Listas, Cartões)
