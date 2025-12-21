@@ -1,3 +1,4 @@
+import { checkDbConnection } from "@/lib/db";
 import type { Metadata } from "next";
 import localFont from "next/font/local";
 import "./globals.css";
@@ -38,6 +39,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  checkDbConnection();
   return (
     <html lang="pt-BR">
       <body className={`${segoeUi.variable} antialiased font-sans`}>
