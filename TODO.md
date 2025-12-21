@@ -57,7 +57,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
 
 ## Fase 4: Funcionalidades Principais (Quadros, Listas, Cartões)
 
-- [ ] **Página de Dashboard (Listagem de Quadros)**
+- [x] **Página de Dashboard (Listagem de Quadros)**
   - Criar `(dashboard)/page.tsx`.
   - Criar Server Action (`getBoardsAction`) para buscar os quadros do usuário logado.
   - Exibir os quadros em formato de grid usando `Card` do `shadcn/ui`.
