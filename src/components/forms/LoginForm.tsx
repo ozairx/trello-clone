@@ -1,5 +1,8 @@
 "use client";
 
+import { env } from "@/env";
+import { signInWithTestDataAction } from "@/lib/actions/auth-actions";
+
 import { signIn } from "next-auth/react";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -73,6 +76,17 @@ export default function LoginForm() {
               />
               GitHub
             </Button>
+            {env.NEXT_PUBLIC_ENABLE_TEST_LOGIN && (
+              <form action={signInWithTestDataAction}>
+                <Button
+                  type="submit"
+                  variant="link"
+                  className="w-full underline p-0"
+                >
+                  Fazer login (teste)
+                </Button>
+              </form>
+            )}
           </div>
           <div className="mt-4 text-center text-sm">
             <a href="#" className="underline text-primary hover:no-underline">
