@@ -25,7 +25,7 @@ export async function proxy(request: NextRequest) {
   }
   
   if (isAuthPage && token) {
-    return NextResponse.redirect(new URL('/dashboard', request.url));
+    return NextResponse.redirect(new URL('/', request.url));
   }
   
   // Security headers
