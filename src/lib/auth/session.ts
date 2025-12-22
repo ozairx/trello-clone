@@ -1,6 +1,4 @@
-// src/lib/auth/session.ts
-import { getServerSession } from 'next-auth';
-import { authOptions } from './options';
+import { auth } from "@/lib/auth";
 
 /**
  * Gets current user session.
@@ -9,7 +7,7 @@ import { authOptions } from './options';
  * @returns Session object or null if not authenticated
  */
 export async function getSession() {
-  return await getServerSession(authOptions);
+  return await auth();
 }
 
 /**
