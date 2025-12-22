@@ -8,6 +8,7 @@
     "start": "next start",
     "lint": "biome check",
     "format": "biome format --write",
+    "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio --config ./prisma.config.ts --browser none --port 5000",
     "prisma:seed": "prisma db seed"
   },
