@@ -2,6 +2,8 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 import { getToken } from 'next-auth/jwt';
 
+import { env } from '@/env';
+
 /**
  * Middleware for authentication and security headers.
  * 
@@ -14,7 +16,7 @@ import { getToken } from 'next-auth/jwt';
  * @see https://nextjs.org/docs/messages/middleware-to-proxy
  */
 export async function proxy(request: NextRequest) {
-  const token = await getToken({ req: request });
+  const token = await getToken({ req: request, secret: env.AUTH_SECRET });
   const isAuthPage = request.nextUrl.pathname.startsWith('/login');
   const isProtectedPage = request.nextUrl.pathname.startsWith('/dashboard');
   
