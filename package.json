@@ -10,6 +10,7 @@
     "format": "biome format --write",
     "prisma:generate": "prisma generate",
     "prisma:studio": "prisma studio --config ./prisma.config.ts --browser none --port 5000",
+    "prisma:dev": "prisma migrate dev",
     "prisma:seed": "prisma db seed"
   },
   "dependencies": {
