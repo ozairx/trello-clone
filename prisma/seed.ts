@@ -1,9 +1,7 @@
-import { PrismaClient } from "@prisma/client";
-
-const prisma = new PrismaClient();
+import { db } from "../src/lib/db";
 
 async function main() {
-  const testUser = await prisma.user.upsert({
+  const testUser = await db.user.upsert({
     where: { email: "test@example.com" },
     update: {},
     create: {
@@ -17,10 +15,10 @@ async function main() {
 
 main()
   .then(async () => {
-    await prisma.$disconnect();
+    await db.$disconnect();
   })
   .catch(async (e) => {
     console.error(e);
-    await prisma.$disconnect();
+    await db.$disconnect();
     process.exit(1);
   });
