@@ -50,20 +50,24 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
 - [x] **Criar Páginas de UI para Autenticação**
   - `(auth)/login/page.tsx` com botões de login para os provedores.
   - Adicionar componentes de UI (botão, card) do `shadcn/ui`. Add mais componentes do shadcn/ui conforme for necessário. O layout deve ser semelhante ao do Trello.
-- [x] **Proteger Rotas com Middleware**
-  - Criar `middleware.ts` para redirecionar usuários não autenticados de rotas protegidas (ex: `/dashboard`) para a página de login.
+- [x] **Proteger Rotas com Proxy**
+  - Criar `proxy.ts` para redirecionar usuários não autenticados de rotas protegidas (ex: `/u/{user}/boards`) para a página de login.
 - [x] **Componentes de Sessão**
   - Criar componentes para exibir informações do usuário (avatar, nome) e botões de `login`/`logout`.
 
 ## Fase 4: Funcionalidades Principais (Quadros, Listas, Cartões)
 
-- [x] **Página de Dashboard (Listagem de Quadros)**
-  - Criar `(dashboard)/page.tsx`.
+- [x] **Estrutura de URL**
+  - Alterar a estrutura de URL para `/u/{user}/boards`.
+- [x] **Página de Quadros (Listagem de Quadros)**
+  - Criar `(boards)/page.tsx`.
   - Criar Server Action (`getBoardsAction`) para buscar os quadros do usuário logado.
   - Exibir os quadros em formato de grid usando `Card` do `shadcn/ui`.
   - Adicionar um formulário/botão para criar um novo quadro.
+- [ ] **Layout da Página de Quadros**
+  - Modificar o layout da página de quadros para ser semelhante ao do Trello, com base no HTML fornecido.
 - [ ] **Página de um Quadro Específico (`/board/{boardId}`)**
-  - Criar a rota dinâmica `(dashboard)/board/[boardId]/page.tsx`.
+  - Criar a rota dinâmica `(boards)/[boardId]/page.tsx`.
   - Buscar os dados do quadro, incluindo suas listas e cartões.
   - Exibir as listas horizontalmente. Cada lista deve mostrar seus cartões verticalmente.
 - [ ] **Server Actions para CRUD**
@@ -88,7 +92,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - Criar uma Server Action genérica (`createLogAction`) para registrar atividades (ex: "Usuário X moveu o cartão Y para a lista Z").
   - Exibir um feed de atividades no modal do cartão ou em um painel lateral.
 - [ ] **Loading e Skeletons**
-  - Criar `loading.tsx` para o dashboard e a página do quadro.
+  - Criar `loading.tsx` para a página de quadros e a página do quadro.
   - Usar `Skeleton` do `shadcn/ui` para criar componentes de loading que imitam a UI final.
   - Usar `Suspense` para carregar partes da página de forma independente.
 - [ ] **Validação com Zod**
