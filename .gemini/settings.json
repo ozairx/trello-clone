@@ -7,6 +7,10 @@
     "prisma": {
       "command": "npx",
       "args": ["-y", "prisma", "mcp"]
+    },
+    "playwright": {
+      "command": "npx",
+      "args": ["@playwright/mcp@latest"]
     }
   }
 }
