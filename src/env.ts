@@ -24,6 +24,7 @@ export const env = createEnv({
     GOOGLE_CLIENT_ID: process.env.GOOGLE_CLIENT_ID,
     GOOGLE_CLIENT_SECRET: process.env.GOOGLE_CLIENT_SECRET,
     NODE_ENV: process.env.NODE_ENV,
-    NEXT_PUBLIC_ENABLE_TEST_LOGIN: process.env.NEXT_PUBLIC_ENABLE_TEST_LOGIN === 'true',
+    NEXT_PUBLIC_ENABLE_TEST_LOGIN:
+      process.env.NEXT_PUBLIC_ENABLE_TEST_LOGIN === "true",
   },
 });
