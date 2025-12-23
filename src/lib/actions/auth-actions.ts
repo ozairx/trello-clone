@@ -7,7 +7,6 @@ export async function signInWithTestDataAction() {
   try {
     await signIn('credentials', {
       email: 'test@example.com',
-      redirectTo: '/',
     });
   } catch (error) {
     if (error instanceof AuthError) {
