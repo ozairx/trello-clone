@@ -18,14 +18,16 @@ import { env } from '@/env';
 export async function proxy(request: NextRequest) {
   const token = await getToken({ req: request, secret: env.AUTH_SECRET });
   const isAuthPage = request.nextUrl.pathname.startsWith('/login');
-  const isProtectedPage = request.nextUrl.pathname.startsWith('/dashboard');
+  const isProtectedPage = request.nextUrl.pathname.startsWith('/u');
   
   if (isProtectedPage && !token) {
     return NextResponse.redirect(new URL('/login', request.url));
   }
   
   if (isAuthPage && token) {
-    return NextResponse.redirect(new URL('/', request.url));
+    // TODO: Get the username from the token. For now, redirect to testuser's boards.
+    // This needs to be dynamic.
+    return NextResponse.redirect(new URL(`/u/${token.username}/boards`, request.url));
   }
   
   // Security headers
