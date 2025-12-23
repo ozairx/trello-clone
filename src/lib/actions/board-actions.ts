@@ -2,18 +2,27 @@
 
 import { db } from '@/lib/db';
 import { requireAuth } from '@/lib/auth/session';
+import { revalidatePath } from 'next/cache';
+import { z } from 'zod';
 
 /**
  * Gets the boards for the currently logged in user.
  * 
  * @returns The user's boards or an error object.
  */
-export async function getBoardsAction() {
+export async function getBoardsAction(username: string) {
   try {
-    const session = await requireAuth();
+    const user = await db.user.findUnique({
+      where: { username },
+    });
+
+    if (!user) {
+      return { success: false, error: 'User not found' };
+    }
+
     const boards = await db.board.findMany({
       where: {
-        userId: session.user.id,
+        userId: user.id,
       },
       orderBy: {
         createdAt: 'desc',
@@ -25,9 +34,6 @@ export async function getBoardsAction() {
     return { success: false, error: 'Failed to get boards' };
   }
 }
-
-import { revalidatePath } from 'next/cache';
-import { z } from 'zod';
 
 const createBoardSchema = z.object({
   title: z.string().min(1, 'Title is required').max(100, 'Title is too long'),
@@ -47,7 +53,7 @@ export async function createBoardAction(formData: FormData) {
       },
     });
 
-    revalidatePath('/(dashboard)');
+    revalidatePath(`/u/${session.user.username}/boards`);
 
     return { success: true, data: board };
   } catch (error) {
