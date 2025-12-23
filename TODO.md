@@ -64,7 +64,7 @@ Este arquivo descreve todos os passos para criar, testar e implantar um clone do
   - Criar Server Action (`getBoardsAction`) para buscar os quadros do usuário logado.
   - Exibir os quadros em formato de grid usando `Card` do `shadcn/ui`.
   - Adicionar um formulário/botão para criar um novo quadro.
-- [ ] **Layout da Página de Quadros**
+- [x] **Layout da Página de Quadros**
   - Modificar o layout da página de quadros para ser semelhante ao do Trello, com base no HTML fornecido.
 - [ ] **Página de um Quadro Específico (`/board/{boardId}`)**
   - Criar a rota dinâmica `(boards)/[boardId]/page.tsx`.
