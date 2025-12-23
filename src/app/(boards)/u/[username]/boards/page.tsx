@@ -2,6 +2,7 @@ import { getBoardsAction } from "@/lib/actions/board-actions";
 import { CreateBoardForm } from "@/components/forms/CreateBoardForm";
 import { BoardsLayout } from "@/components/layout/BoardsLayout";
 import Link from "next/link";
+import { db } from "@/lib/db"; // Import db
 
 const TemplateCard = ({ title }: { title: string }) => (
   <div className="relative h-[120px] rounded-lg bg-gradient-to-br from-[#2A2E36] to-[#1F2229] p-4">
@@ -18,6 +19,24 @@ export default async function UserBoardsPage({
   params: Promise<{ username: string }>;
 }) {
   const { username } = await params;
+
+  // Fetch user with workspaces to get workspaceId
+  const user = await db.user.findUnique({
+    where: { username },
+    include: {
+      workspaces: true, // Just need the workspace ID
+    },
+  });
+
+  if (!user) {
+    return <p className="text-red-500 p-6">User not found.</p>;
+  }
+
+  // Get the ID of the first workspace (for simplicity for now)
+  const currentWorkspaceId =
+    user.workspaces.length > 0 ? user.workspaces[0].workspaceId : null;
+
+  // Now fetch boards for this user using the updated action
   const { data: boards, error } = await getBoardsAction(username);
 
   if (error) {
@@ -55,7 +74,9 @@ export default async function UserBoardsPage({
                 <h3 className="font-bold text-white">{board.title}</h3>
               </Link>
             ))}
-            <CreateBoardForm />
+            {currentWorkspaceId && (
+              <CreateBoardForm workspaceId={currentWorkspaceId} />
+            )}
           </div>
         ) : (
           <div className="mt-4 text-[#9AA1AC]">
@@ -63,6 +84,9 @@ export default async function UserBoardsPage({
             <button className="text-[#579DFF] underline">
               Criar uma Área de trabalho
             </button>
+            {currentWorkspaceId && (
+              <CreateBoardForm workspaceId={currentWorkspaceId} />
+            )}
           </div>
         )}
 

@@ -14,20 +14,32 @@ export async function getBoardsAction(username: string) {
   try {
     const user = await db.user.findUnique({
       where: { username },
+      include: {
+        workspaces: {
+          include: {
+            workspace: {
+              include: {
+                boards: {
+                  orderBy: {
+                    createdAt: "desc",
+                  },
+                },
+              },
+            },
+          },
+        },
+      },
     });
 
     if (!user) {
       return { success: false, error: "User not found" };
     }
 
-    const boards = await db.board.findMany({
-      where: {
-        userId: user.id,
-      },
-      orderBy: {
-        createdAt: "desc",
-      },
-    });
+    // Flatten the boards from all workspaces the user is a member of
+    const boards = user.workspaces.flatMap(
+      (workspaceMember) => workspaceMember.workspace.boards,
+    );
+
     return { success: true, data: boards };
   } catch (error) {
     console.error("Get boards error:", error);
@@ -37,6 +49,7 @@ export async function getBoardsAction(username: string) {
 
 const createBoardSchema = z.object({
   title: z.string().min(1, "Title is required").max(100, "Title is too long"),
+  workspaceId: z.string().min(1, "Workspace ID is required"),
 });
 
 export async function createBoardAction(formData: FormData) {
@@ -44,12 +57,28 @@ export async function createBoardAction(formData: FormData) {
     const session = await requireAuth();
     const validated = createBoardSchema.parse({
       title: formData.get("title"),
+      workspaceId: formData.get("workspaceId"),
     });
+
+    // Verify user is a member of the workspace
+    const isMember = await db.workspaceMember.findFirst({
+      where: {
+        userId: session.user.id,
+        workspaceId: validated.workspaceId,
+      },
+    });
+
+    if (!isMember) {
+      return {
+        success: false,
+        error: "Unauthorized to create board in this workspace",
+      };
+    }
 
     const board = await db.board.create({
       data: {
         title: validated.title,
-        userId: session.user.id,
+        workspaceId: validated.workspaceId,
       },
     });
 

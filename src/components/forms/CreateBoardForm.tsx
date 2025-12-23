@@ -13,7 +13,7 @@ import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import { useRef, useState } from "react";
 
-export function CreateBoardForm() {
+export function CreateBoardForm({ workspaceId }: { workspaceId: string }) {
   const [open, setOpen] = useState(false);
   const formRef = useRef<HTMLFormElement>(null);
 
@@ -25,7 +25,6 @@ export function CreateBoardForm() {
       setOpen(false);
       formRef.current?.reset();
     } else {
-      // Handle error, e.g., show a toast message
       console.error(result.error);
     }
   };
@@ -46,6 +45,7 @@ export function CreateBoardForm() {
         </DialogHeader>
         <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
           <Input name="title" placeholder="Board title" />
+          <input type="hidden" name="workspaceId" value={workspaceId} />
           <Button type="submit">Create</Button>
         </form>
       </DialogContent>
