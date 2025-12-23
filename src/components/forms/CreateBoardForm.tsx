@@ -1,6 +1,6 @@
-'use client';
+"use client";
 
-import { createBoardAction } from '@/lib/actions/board-actions';
+import { createBoardAction } from "@/lib/actions/board-actions";
 import {
   Dialog,
   DialogContent,
@@ -8,10 +8,10 @@ import {
   DialogHeader,
   DialogTitle,
   DialogTrigger,
-} from '@/components/ui/dialog';
-import { Input } from '@/components/ui/input';
-import { Button } from '@/components/ui/button';
-import { useRef, useState } from 'react';
+} from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
+import { useRef, useState } from "react";
 
 export function CreateBoardForm() {
   const [open, setOpen] = useState(false);
@@ -33,7 +33,9 @@ export function CreateBoardForm() {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline">Create new board</Button>
+        <div className="relative flex h-[120px] cursor-pointer items-center justify-center rounded-lg bg-[#23262D] p-4 text-white transition-colors hover:bg-gray-700">
+          <p className="font-bold">Create new board</p>
+        </div>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
