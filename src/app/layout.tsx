@@ -1,32 +1,17 @@
 import { checkDbConnection } from "@/lib/db";
 import type { Metadata } from "next";
-import localFont from "next/font/local";
+import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+import { SessionProvider } from "next-auth/react";
 
-const segoeUi = localFont({
-  variable: "--font-segoe-ui",
-  src: [
-    {
-      path: "../../public/fonts/segoe-ui/segoe_ui.ttf",
-      weight: "400",
-      style: "normal",
-    },
-    {
-      path: "../../public/fonts/segoe-ui/segoe_ui_italic.ttf",
-      weight: "400",
-      style: "italic",
-    },
-    {
-      path: "../../public/fonts/segoe-ui/segoe_ui_bold.ttf",
-      weight: "700",
-      style: "bold",
-    },
-    {
-      path: "../../public/fonts/segoe-ui/segoe_ui_bold_italic.ttf",
-      weight: "700",
-      style: "italic",
-    },
-  ],
+const geistSans = Geist({
+  variable: "--font-geist-sans",
+  subsets: ["latin"],
+});
+
+const geistMono = Geist_Mono({
+  variable: "--font-geist-mono",
+  subsets: ["latin"],
 });
 
 export const metadata: Metadata = {
@@ -42,8 +27,10 @@ export default function RootLayout({
   checkDbConnection();
   return (
     <html lang="pt-BR">
-      <body className={`${segoeUi.variable} antialiased font-sans`}>
-        {children}
+      <body
+        className={`${geistSans.variable} ${geistMono.variable} antialiased`}
+      >
+        <SessionProvider>{children}</SessionProvider>
       </body>
     </html>
   );
