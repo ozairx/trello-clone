@@ -77,15 +77,14 @@ export default function LoginForm() {
               GitHub
             </Button>
             {env.NEXT_PUBLIC_ENABLE_TEST_LOGIN && (
-              <form action={signInWithTestDataAction}>
-                <Button
-                  type="submit"
-                  variant="link"
-                  className="w-full underline p-0 cursor-pointer hover:no-underline"
-                >
-                  Fazer login (teste)
-                </Button>
-              </form>
+              <Button
+                type="button"
+                variant="link"
+                className="w-full underline p-0 cursor-pointer hover:no-underline"
+                onClick={() => signIn('credentials', { email: 'test@example.com' })}
+              >
+                Fazer login (teste)
+              </Button>
             )}
           </div>
           <div className="mt-4 text-center text-sm">
