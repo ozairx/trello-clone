@@ -400,10 +400,6 @@ export type SessionUncheckedUpdateManyWithoutUserNestedInput = {
     | Prisma.SessionScalarWhereInput[];
 };
 
-export type DateTimeFieldUpdateOperationsInput = {
-  set?: Date | string;
-};
-
 export type SessionCreateWithoutUserInput = {
   id?: string;
   sessionToken: string;

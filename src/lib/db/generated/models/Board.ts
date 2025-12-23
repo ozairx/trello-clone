@@ -27,7 +27,7 @@ export type AggregateBoard = {
 export type BoardMinAggregateOutputType = {
   id: string | null;
   title: string | null;
-  userId: string | null;
+  workspaceId: string | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
@@ -35,7 +35,7 @@ export type BoardMinAggregateOutputType = {
 export type BoardMaxAggregateOutputType = {
   id: string | null;
   title: string | null;
-  userId: string | null;
+  workspaceId: string | null;
   createdAt: Date | null;
   updatedAt: Date | null;
 };
@@ -43,7 +43,7 @@ export type BoardMaxAggregateOutputType = {
 export type BoardCountAggregateOutputType = {
   id: number;
   title: number;
-  userId: number;
+  workspaceId: number;
   createdAt: number;
   updatedAt: number;
   _all: number;
@@ -52,7 +52,7 @@ export type BoardCountAggregateOutputType = {
 export type BoardMinAggregateInputType = {
   id?: true;
   title?: true;
-  userId?: true;
+  workspaceId?: true;
   createdAt?: true;
   updatedAt?: true;
 };
@@ -60,7 +60,7 @@ export type BoardMinAggregateInputType = {
 export type BoardMaxAggregateInputType = {
   id?: true;
   title?: true;
-  userId?: true;
+  workspaceId?: true;
   createdAt?: true;
   updatedAt?: true;
 };
@@ -68,7 +68,7 @@ export type BoardMaxAggregateInputType = {
 export type BoardCountAggregateInputType = {
   id?: true;
   title?: true;
-  userId?: true;
+  workspaceId?: true;
   createdAt?: true;
   updatedAt?: true;
   _all?: true;
@@ -156,7 +156,7 @@ export type BoardGroupByArgs<
 export type BoardGroupByOutputType = {
   id: string;
   title: string;
-  userId: string;
+  workspaceId: string;
   createdAt: Date;
   updatedAt: Date;
   _count: BoardCountAggregateOutputType | null;
@@ -182,43 +182,50 @@ export type BoardWhereInput = {
   NOT?: Prisma.BoardWhereInput | Prisma.BoardWhereInput[];
   id?: Prisma.StringFilter<"Board"> | string;
   title?: Prisma.StringFilter<"Board"> | string;
-  userId?: Prisma.StringFilter<"Board"> | string;
+  workspaceId?: Prisma.StringFilter<"Board"> | string;
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<"Board"> | Date | string;
-  user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+  workspace?: Prisma.XOR<
+    Prisma.WorkspaceScalarRelationFilter,
+    Prisma.WorkspaceWhereInput
+  >;
   lists?: Prisma.ListListRelationFilter;
 };
 
 export type BoardOrderByWithRelationInput = {
   id?: Prisma.SortOrder;
   title?: Prisma.SortOrder;
-  userId?: Prisma.SortOrder;
+  workspaceId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
-  user?: Prisma.UserOrderByWithRelationInput;
+  workspace?: Prisma.WorkspaceOrderByWithRelationInput;
   lists?: Prisma.ListOrderByRelationAggregateInput;
 };
 
 export type BoardWhereUniqueInput = Prisma.AtLeast<
   {
     id?: string;
+    title_workspaceId?: Prisma.BoardTitleWorkspaceIdCompoundUniqueInput;
     AND?: Prisma.BoardWhereInput | Prisma.BoardWhereInput[];
     OR?: Prisma.BoardWhereInput[];
     NOT?: Prisma.BoardWhereInput | Prisma.BoardWhereInput[];
     title?: Prisma.StringFilter<"Board"> | string;
-    userId?: Prisma.StringFilter<"Board"> | string;
+    workspaceId?: Prisma.StringFilter<"Board"> | string;
     createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string;
     updatedAt?: Prisma.DateTimeFilter<"Board"> | Date | string;
-    user?: Prisma.XOR<Prisma.UserScalarRelationFilter, Prisma.UserWhereInput>;
+    workspace?: Prisma.XOR<
+      Prisma.WorkspaceScalarRelationFilter,
+      Prisma.WorkspaceWhereInput
+    >;
     lists?: Prisma.ListListRelationFilter;
   },
-  "id"
+  "id" | "title_workspaceId"
 >;
 
 export type BoardOrderByWithAggregationInput = {
   id?: Prisma.SortOrder;
   title?: Prisma.SortOrder;
-  userId?: Prisma.SortOrder;
+  workspaceId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
   _count?: Prisma.BoardCountOrderByAggregateInput;
@@ -236,7 +243,7 @@ export type BoardScalarWhereWithAggregatesInput = {
     | Prisma.BoardScalarWhereWithAggregatesInput[];
   id?: Prisma.StringWithAggregatesFilter<"Board"> | string;
   title?: Prisma.StringWithAggregatesFilter<"Board"> | string;
-  userId?: Prisma.StringWithAggregatesFilter<"Board"> | string;
+  workspaceId?: Prisma.StringWithAggregatesFilter<"Board"> | string;
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Board"> | Date | string;
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Board"> | Date | string;
 };
@@ -246,14 +253,14 @@ export type BoardCreateInput = {
   title: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  user: Prisma.UserCreateNestedOneWithoutBoardsInput;
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutBoardsInput;
   lists?: Prisma.ListCreateNestedManyWithoutBoardInput;
 };
 
 export type BoardUncheckedCreateInput = {
   id?: string;
   title: string;
-  userId: string;
+  workspaceId: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutBoardInput;
@@ -264,14 +271,14 @@ export type BoardUpdateInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  user?: Prisma.UserUpdateOneRequiredWithoutBoardsNestedInput;
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutBoardsNestedInput;
   lists?: Prisma.ListUpdateManyWithoutBoardNestedInput;
 };
 
 export type BoardUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   title?: Prisma.StringFieldUpdateOperationsInput | string;
-  userId?: Prisma.StringFieldUpdateOperationsInput | string;
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   lists?: Prisma.ListUncheckedUpdateManyWithoutBoardNestedInput;
@@ -280,7 +287,7 @@ export type BoardUncheckedUpdateInput = {
 export type BoardCreateManyInput = {
   id?: string;
   title: string;
-  userId: string;
+  workspaceId: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -295,7 +302,7 @@ export type BoardUpdateManyMutationInput = {
 export type BoardUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   title?: Prisma.StringFieldUpdateOperationsInput | string;
-  userId?: Prisma.StringFieldUpdateOperationsInput | string;
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
@@ -310,10 +317,15 @@ export type BoardOrderByRelationAggregateInput = {
   _count?: Prisma.SortOrder;
 };
 
+export type BoardTitleWorkspaceIdCompoundUniqueInput = {
+  title: string;
+  workspaceId: string;
+};
+
 export type BoardCountOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   title?: Prisma.SortOrder;
-  userId?: Prisma.SortOrder;
+  workspaceId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -321,7 +333,7 @@ export type BoardCountOrderByAggregateInput = {
 export type BoardMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   title?: Prisma.SortOrder;
-  userId?: Prisma.SortOrder;
+  workspaceId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -329,7 +341,7 @@ export type BoardMaxOrderByAggregateInput = {
 export type BoardMinOrderByAggregateInput = {
   id?: Prisma.SortOrder;
   title?: Prisma.SortOrder;
-  userId?: Prisma.SortOrder;
+  workspaceId?: Prisma.SortOrder;
   createdAt?: Prisma.SortOrder;
   updatedAt?: Prisma.SortOrder;
 };
@@ -339,89 +351,89 @@ export type BoardScalarRelationFilter = {
   isNot?: Prisma.BoardWhereInput;
 };
 
-export type BoardCreateNestedManyWithoutUserInput = {
+export type BoardCreateNestedManyWithoutWorkspaceInput = {
   create?:
     | Prisma.XOR<
-        Prisma.BoardCreateWithoutUserInput,
-        Prisma.BoardUncheckedCreateWithoutUserInput
+        Prisma.BoardCreateWithoutWorkspaceInput,
+        Prisma.BoardUncheckedCreateWithoutWorkspaceInput
       >
-    | Prisma.BoardCreateWithoutUserInput[]
-    | Prisma.BoardUncheckedCreateWithoutUserInput[];
+    | Prisma.BoardCreateWithoutWorkspaceInput[]
+    | Prisma.BoardUncheckedCreateWithoutWorkspaceInput[];
   connectOrCreate?:
-    | Prisma.BoardCreateOrConnectWithoutUserInput
-    | Prisma.BoardCreateOrConnectWithoutUserInput[];
-  createMany?: Prisma.BoardCreateManyUserInputEnvelope;
+    | Prisma.BoardCreateOrConnectWithoutWorkspaceInput
+    | Prisma.BoardCreateOrConnectWithoutWorkspaceInput[];
+  createMany?: Prisma.BoardCreateManyWorkspaceInputEnvelope;
   connect?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
 };
 
-export type BoardUncheckedCreateNestedManyWithoutUserInput = {
+export type BoardUncheckedCreateNestedManyWithoutWorkspaceInput = {
   create?:
     | Prisma.XOR<
-        Prisma.BoardCreateWithoutUserInput,
-        Prisma.BoardUncheckedCreateWithoutUserInput
+        Prisma.BoardCreateWithoutWorkspaceInput,
+        Prisma.BoardUncheckedCreateWithoutWorkspaceInput
       >
-    | Prisma.BoardCreateWithoutUserInput[]
-    | Prisma.BoardUncheckedCreateWithoutUserInput[];
+    | Prisma.BoardCreateWithoutWorkspaceInput[]
+    | Prisma.BoardUncheckedCreateWithoutWorkspaceInput[];
   connectOrCreate?:
-    | Prisma.BoardCreateOrConnectWithoutUserInput
-    | Prisma.BoardCreateOrConnectWithoutUserInput[];
-  createMany?: Prisma.BoardCreateManyUserInputEnvelope;
+    | Prisma.BoardCreateOrConnectWithoutWorkspaceInput
+    | Prisma.BoardCreateOrConnectWithoutWorkspaceInput[];
+  createMany?: Prisma.BoardCreateManyWorkspaceInputEnvelope;
   connect?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
 };
 
-export type BoardUpdateManyWithoutUserNestedInput = {
+export type BoardUpdateManyWithoutWorkspaceNestedInput = {
   create?:
     | Prisma.XOR<
-        Prisma.BoardCreateWithoutUserInput,
-        Prisma.BoardUncheckedCreateWithoutUserInput
+        Prisma.BoardCreateWithoutWorkspaceInput,
+        Prisma.BoardUncheckedCreateWithoutWorkspaceInput
       >
-    | Prisma.BoardCreateWithoutUserInput[]
-    | Prisma.BoardUncheckedCreateWithoutUserInput[];
+    | Prisma.BoardCreateWithoutWorkspaceInput[]
+    | Prisma.BoardUncheckedCreateWithoutWorkspaceInput[];
   connectOrCreate?:
-    | Prisma.BoardCreateOrConnectWithoutUserInput
-    | Prisma.BoardCreateOrConnectWithoutUserInput[];
+    | Prisma.BoardCreateOrConnectWithoutWorkspaceInput
+    | Prisma.BoardCreateOrConnectWithoutWorkspaceInput[];
   upsert?:
-    | Prisma.BoardUpsertWithWhereUniqueWithoutUserInput
-    | Prisma.BoardUpsertWithWhereUniqueWithoutUserInput[];
-  createMany?: Prisma.BoardCreateManyUserInputEnvelope;
+    | Prisma.BoardUpsertWithWhereUniqueWithoutWorkspaceInput
+    | Prisma.BoardUpsertWithWhereUniqueWithoutWorkspaceInput[];
+  createMany?: Prisma.BoardCreateManyWorkspaceInputEnvelope;
   set?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
   disconnect?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
   delete?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
   connect?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
   update?:
-    | Prisma.BoardUpdateWithWhereUniqueWithoutUserInput
-    | Prisma.BoardUpdateWithWhereUniqueWithoutUserInput[];
+    | Prisma.BoardUpdateWithWhereUniqueWithoutWorkspaceInput
+    | Prisma.BoardUpdateWithWhereUniqueWithoutWorkspaceInput[];
   updateMany?:
-    | Prisma.BoardUpdateManyWithWhereWithoutUserInput
-    | Prisma.BoardUpdateManyWithWhereWithoutUserInput[];
+    | Prisma.BoardUpdateManyWithWhereWithoutWorkspaceInput
+    | Prisma.BoardUpdateManyWithWhereWithoutWorkspaceInput[];
   deleteMany?: Prisma.BoardScalarWhereInput | Prisma.BoardScalarWhereInput[];
 };
 
-export type BoardUncheckedUpdateManyWithoutUserNestedInput = {
+export type BoardUncheckedUpdateManyWithoutWorkspaceNestedInput = {
   create?:
     | Prisma.XOR<
-        Prisma.BoardCreateWithoutUserInput,
-        Prisma.BoardUncheckedCreateWithoutUserInput
+        Prisma.BoardCreateWithoutWorkspaceInput,
+        Prisma.BoardUncheckedCreateWithoutWorkspaceInput
       >
-    | Prisma.BoardCreateWithoutUserInput[]
-    | Prisma.BoardUncheckedCreateWithoutUserInput[];
+    | Prisma.BoardCreateWithoutWorkspaceInput[]
+    | Prisma.BoardUncheckedCreateWithoutWorkspaceInput[];
   connectOrCreate?:
-    | Prisma.BoardCreateOrConnectWithoutUserInput
-    | Prisma.BoardCreateOrConnectWithoutUserInput[];
+    | Prisma.BoardCreateOrConnectWithoutWorkspaceInput
+    | Prisma.BoardCreateOrConnectWithoutWorkspaceInput[];
   upsert?:
-    | Prisma.BoardUpsertWithWhereUniqueWithoutUserInput
-    | Prisma.BoardUpsertWithWhereUniqueWithoutUserInput[];
-  createMany?: Prisma.BoardCreateManyUserInputEnvelope;
+    | Prisma.BoardUpsertWithWhereUniqueWithoutWorkspaceInput
+    | Prisma.BoardUpsertWithWhereUniqueWithoutWorkspaceInput[];
+  createMany?: Prisma.BoardCreateManyWorkspaceInputEnvelope;
   set?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
   disconnect?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
   delete?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
   connect?: Prisma.BoardWhereUniqueInput | Prisma.BoardWhereUniqueInput[];
   update?:
-    | Prisma.BoardUpdateWithWhereUniqueWithoutUserInput
-    | Prisma.BoardUpdateWithWhereUniqueWithoutUserInput[];
+    | Prisma.BoardUpdateWithWhereUniqueWithoutWorkspaceInput
+    | Prisma.BoardUpdateWithWhereUniqueWithoutWorkspaceInput[];
   updateMany?:
-    | Prisma.BoardUpdateManyWithWhereWithoutUserInput
-    | Prisma.BoardUpdateManyWithWhereWithoutUserInput[];
+    | Prisma.BoardUpdateManyWithWhereWithoutWorkspaceInput
+    | Prisma.BoardUpdateManyWithWhereWithoutWorkspaceInput[];
   deleteMany?: Prisma.BoardScalarWhereInput | Prisma.BoardScalarWhereInput[];
 };
 
@@ -451,7 +463,7 @@ export type BoardUpdateOneRequiredWithoutListsNestedInput = {
   >;
 };
 
-export type BoardCreateWithoutUserInput = {
+export type BoardCreateWithoutWorkspaceInput = {
   id?: string;
   title: string;
   createdAt?: Date | string;
@@ -459,7 +471,7 @@ export type BoardCreateWithoutUserInput = {
   lists?: Prisma.ListCreateNestedManyWithoutBoardInput;
 };
 
-export type BoardUncheckedCreateWithoutUserInput = {
+export type BoardUncheckedCreateWithoutWorkspaceInput = {
   id?: string;
   title: string;
   createdAt?: Date | string;
@@ -467,44 +479,46 @@ export type BoardUncheckedCreateWithoutUserInput = {
   lists?: Prisma.ListUncheckedCreateNestedManyWithoutBoardInput;
 };
 
-export type BoardCreateOrConnectWithoutUserInput = {
+export type BoardCreateOrConnectWithoutWorkspaceInput = {
   where: Prisma.BoardWhereUniqueInput;
   create: Prisma.XOR<
-    Prisma.BoardCreateWithoutUserInput,
-    Prisma.BoardUncheckedCreateWithoutUserInput
+    Prisma.BoardCreateWithoutWorkspaceInput,
+    Prisma.BoardUncheckedCreateWithoutWorkspaceInput
   >;
 };
 
-export type BoardCreateManyUserInputEnvelope = {
-  data: Prisma.BoardCreateManyUserInput | Prisma.BoardCreateManyUserInput[];
+export type BoardCreateManyWorkspaceInputEnvelope = {
+  data:
+    | Prisma.BoardCreateManyWorkspaceInput
+    | Prisma.BoardCreateManyWorkspaceInput[];
   skipDuplicates?: boolean;
 };
 
-export type BoardUpsertWithWhereUniqueWithoutUserInput = {
+export type BoardUpsertWithWhereUniqueWithoutWorkspaceInput = {
   where: Prisma.BoardWhereUniqueInput;
   update: Prisma.XOR<
-    Prisma.BoardUpdateWithoutUserInput,
-    Prisma.BoardUncheckedUpdateWithoutUserInput
+    Prisma.BoardUpdateWithoutWorkspaceInput,
+    Prisma.BoardUncheckedUpdateWithoutWorkspaceInput
   >;
   create: Prisma.XOR<
-    Prisma.BoardCreateWithoutUserInput,
-    Prisma.BoardUncheckedCreateWithoutUserInput
+    Prisma.BoardCreateWithoutWorkspaceInput,
+    Prisma.BoardUncheckedCreateWithoutWorkspaceInput
   >;
 };
 
-export type BoardUpdateWithWhereUniqueWithoutUserInput = {
+export type BoardUpdateWithWhereUniqueWithoutWorkspaceInput = {
   where: Prisma.BoardWhereUniqueInput;
   data: Prisma.XOR<
-    Prisma.BoardUpdateWithoutUserInput,
-    Prisma.BoardUncheckedUpdateWithoutUserInput
+    Prisma.BoardUpdateWithoutWorkspaceInput,
+    Prisma.BoardUncheckedUpdateWithoutWorkspaceInput
   >;
 };
 
-export type BoardUpdateManyWithWhereWithoutUserInput = {
+export type BoardUpdateManyWithWhereWithoutWorkspaceInput = {
   where: Prisma.BoardScalarWhereInput;
   data: Prisma.XOR<
     Prisma.BoardUpdateManyMutationInput,
-    Prisma.BoardUncheckedUpdateManyWithoutUserInput
+    Prisma.BoardUncheckedUpdateManyWithoutWorkspaceInput
   >;
 };
 
@@ -514,7 +528,7 @@ export type BoardScalarWhereInput = {
   NOT?: Prisma.BoardScalarWhereInput | Prisma.BoardScalarWhereInput[];
   id?: Prisma.StringFilter<"Board"> | string;
   title?: Prisma.StringFilter<"Board"> | string;
-  userId?: Prisma.StringFilter<"Board"> | string;
+  workspaceId?: Prisma.StringFilter<"Board"> | string;
   createdAt?: Prisma.DateTimeFilter<"Board"> | Date | string;
   updatedAt?: Prisma.DateTimeFilter<"Board"> | Date | string;
 };
@@ -524,13 +538,13 @@ export type BoardCreateWithoutListsInput = {
   title: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
-  user: Prisma.UserCreateNestedOneWithoutBoardsInput;
+  workspace: Prisma.WorkspaceCreateNestedOneWithoutBoardsInput;
 };
 
 export type BoardUncheckedCreateWithoutListsInput = {
   id?: string;
   title: string;
-  userId: string;
+  workspaceId: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
@@ -568,25 +582,25 @@ export type BoardUpdateWithoutListsInput = {
   title?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
-  user?: Prisma.UserUpdateOneRequiredWithoutBoardsNestedInput;
+  workspace?: Prisma.WorkspaceUpdateOneRequiredWithoutBoardsNestedInput;
 };
 
 export type BoardUncheckedUpdateWithoutListsInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   title?: Prisma.StringFieldUpdateOperationsInput | string;
-  userId?: Prisma.StringFieldUpdateOperationsInput | string;
+  workspaceId?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
 };
 
-export type BoardCreateManyUserInput = {
+export type BoardCreateManyWorkspaceInput = {
   id?: string;
   title: string;
   createdAt?: Date | string;
   updatedAt?: Date | string;
 };
 
-export type BoardUpdateWithoutUserInput = {
+export type BoardUpdateWithoutWorkspaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   title?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -594,7 +608,7 @@ export type BoardUpdateWithoutUserInput = {
   lists?: Prisma.ListUpdateManyWithoutBoardNestedInput;
 };
 
-export type BoardUncheckedUpdateWithoutUserInput = {
+export type BoardUncheckedUpdateWithoutWorkspaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   title?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -602,7 +616,7 @@ export type BoardUncheckedUpdateWithoutUserInput = {
   lists?: Prisma.ListUncheckedUpdateManyWithoutBoardNestedInput;
 };
 
-export type BoardUncheckedUpdateManyWithoutUserInput = {
+export type BoardUncheckedUpdateManyWithoutWorkspaceInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string;
   title?: Prisma.StringFieldUpdateOperationsInput | string;
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string;
@@ -654,10 +668,10 @@ export type BoardSelect<
   {
     id?: boolean;
     title?: boolean;
-    userId?: boolean;
+    workspaceId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>;
     lists?: boolean | Prisma.Board$listsArgs<ExtArgs>;
     _count?: boolean | Prisma.BoardCountOutputTypeDefaultArgs<ExtArgs>;
   },
@@ -671,10 +685,10 @@ export type BoardSelectCreateManyAndReturn<
   {
     id?: boolean;
     title?: boolean;
-    userId?: boolean;
+    workspaceId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>;
   },
   ExtArgs["result"]["board"]
 >;
@@ -686,10 +700,10 @@ export type BoardSelectUpdateManyAndReturn<
   {
     id?: boolean;
     title?: boolean;
-    userId?: boolean;
+    workspaceId?: boolean;
     createdAt?: boolean;
     updatedAt?: boolean;
-    user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+    workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>;
   },
   ExtArgs["result"]["board"]
 >;
@@ -697,7 +711,7 @@ export type BoardSelectUpdateManyAndReturn<
 export type BoardSelectScalar = {
   id?: boolean;
   title?: boolean;
-  userId?: boolean;
+  workspaceId?: boolean;
   createdAt?: boolean;
   updatedAt?: boolean;
 };
@@ -706,14 +720,14 @@ export type BoardOmit<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = runtime.Types.Extensions.GetOmit<
-  "id" | "title" | "userId" | "createdAt" | "updatedAt",
+  "id" | "title" | "workspaceId" | "createdAt" | "updatedAt",
   ExtArgs["result"]["board"]
 >;
 export type BoardInclude<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>;
   lists?: boolean | Prisma.Board$listsArgs<ExtArgs>;
   _count?: boolean | Prisma.BoardCountOutputTypeDefaultArgs<ExtArgs>;
 };
@@ -721,13 +735,13 @@ export type BoardIncludeCreateManyAndReturn<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>;
 };
 export type BoardIncludeUpdateManyAndReturn<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  user?: boolean | Prisma.UserDefaultArgs<ExtArgs>;
+  workspace?: boolean | Prisma.WorkspaceDefaultArgs<ExtArgs>;
 };
 
 export type $BoardPayload<
@@ -736,14 +750,14 @@ export type $BoardPayload<
 > = {
   name: "Board";
   objects: {
-    user: Prisma.$UserPayload<ExtArgs>;
+    workspace: Prisma.$WorkspacePayload<ExtArgs>;
     lists: Prisma.$ListPayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
       id: string;
       title: string;
-      userId: string;
+      workspaceId: string;
       createdAt: Date;
       updatedAt: Date;
     },
@@ -1296,11 +1310,11 @@ export interface Prisma__BoardClient<
   GlobalOmitOptions = {},
 > extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise";
-  user<T extends Prisma.UserDefaultArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.UserDefaultArgs<ExtArgs>>,
-  ): Prisma.Prisma__UserClient<
+  workspace<T extends Prisma.WorkspaceDefaultArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.WorkspaceDefaultArgs<ExtArgs>>,
+  ): Prisma.Prisma__WorkspaceClient<
     | runtime.Types.Result.GetResult<
-        Prisma.$UserPayload<ExtArgs>,
+        Prisma.$WorkspacePayload<ExtArgs>,
         T,
         "findUniqueOrThrow",
         GlobalOmitOptions
@@ -1365,7 +1379,7 @@ export interface Prisma__BoardClient<
 export interface BoardFieldRefs {
   readonly id: Prisma.FieldRef<"Board", "String">;
   readonly title: Prisma.FieldRef<"Board", "String">;
-  readonly userId: Prisma.FieldRef<"Board", "String">;
+  readonly workspaceId: Prisma.FieldRef<"Board", "String">;
   readonly createdAt: Prisma.FieldRef<"Board", "DateTime">;
   readonly updatedAt: Prisma.FieldRef<"Board", "DateTime">;
 }

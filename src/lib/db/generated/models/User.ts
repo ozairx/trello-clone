@@ -195,7 +195,8 @@ export type UserWhereInput = {
   image?: Prisma.StringNullableFilter<"User"> | string | null;
   accounts?: Prisma.AccountListRelationFilter;
   sessions?: Prisma.SessionListRelationFilter;
-  boards?: Prisma.BoardListRelationFilter;
+  ownedWorkspaces?: Prisma.WorkspaceListRelationFilter;
+  workspaces?: Prisma.WorkspaceMemberListRelationFilter;
 };
 
 export type UserOrderByWithRelationInput = {
@@ -207,7 +208,8 @@ export type UserOrderByWithRelationInput = {
   image?: Prisma.SortOrderInput | Prisma.SortOrder;
   accounts?: Prisma.AccountOrderByRelationAggregateInput;
   sessions?: Prisma.SessionOrderByRelationAggregateInput;
-  boards?: Prisma.BoardOrderByRelationAggregateInput;
+  ownedWorkspaces?: Prisma.WorkspaceOrderByRelationAggregateInput;
+  workspaces?: Prisma.WorkspaceMemberOrderByRelationAggregateInput;
 };
 
 export type UserWhereUniqueInput = Prisma.AtLeast<
@@ -227,7 +229,8 @@ export type UserWhereUniqueInput = Prisma.AtLeast<
     image?: Prisma.StringNullableFilter<"User"> | string | null;
     accounts?: Prisma.AccountListRelationFilter;
     sessions?: Prisma.SessionListRelationFilter;
-    boards?: Prisma.BoardListRelationFilter;
+    ownedWorkspaces?: Prisma.WorkspaceListRelationFilter;
+    workspaces?: Prisma.WorkspaceMemberListRelationFilter;
   },
   "id" | "username" | "email"
 >;
@@ -273,7 +276,8 @@ export type UserCreateInput = {
   image?: string | null;
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput;
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
-  boards?: Prisma.BoardCreateNestedManyWithoutUserInput;
+  ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput;
+  workspaces?: Prisma.WorkspaceMemberCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateInput = {
@@ -285,7 +289,8 @@ export type UserUncheckedCreateInput = {
   image?: string | null;
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput;
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
-  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutUserInput;
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput;
+  workspaces?: Prisma.WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserUpdateInput = {
@@ -301,7 +306,8 @@ export type UserUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput;
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
-  boards?: Prisma.BoardUpdateManyWithoutUserNestedInput;
+  ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput;
+  workspaces?: Prisma.WorkspaceMemberUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateInput = {
@@ -317,7 +323,8 @@ export type UserUncheckedUpdateInput = {
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput;
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
-  boards?: Prisma.BoardUncheckedUpdateManyWithoutUserNestedInput;
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput;
+  workspaces?: Prisma.WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 export type UserCreateManyInput = {
@@ -399,6 +406,58 @@ export type NullableDateTimeFieldUpdateOperationsInput = {
   set?: Date | string | null;
 };
 
+export type UserCreateNestedOneWithoutOwnedWorkspacesInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutOwnedWorkspacesInput,
+    Prisma.UserUncheckedCreateWithoutOwnedWorkspacesInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedWorkspacesInput;
+  connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserUpdateOneRequiredWithoutOwnedWorkspacesNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutOwnedWorkspacesInput,
+    Prisma.UserUncheckedCreateWithoutOwnedWorkspacesInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutOwnedWorkspacesInput;
+  upsert?: Prisma.UserUpsertWithoutOwnedWorkspacesInput;
+  connect?: Prisma.UserWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutOwnedWorkspacesInput,
+      Prisma.UserUpdateWithoutOwnedWorkspacesInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutOwnedWorkspacesInput
+  >;
+};
+
+export type UserCreateNestedOneWithoutWorkspacesInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutWorkspacesInput,
+    Prisma.UserUncheckedCreateWithoutWorkspacesInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkspacesInput;
+  connect?: Prisma.UserWhereUniqueInput;
+};
+
+export type UserUpdateOneRequiredWithoutWorkspacesNestedInput = {
+  create?: Prisma.XOR<
+    Prisma.UserCreateWithoutWorkspacesInput,
+    Prisma.UserUncheckedCreateWithoutWorkspacesInput
+  >;
+  connectOrCreate?: Prisma.UserCreateOrConnectWithoutWorkspacesInput;
+  upsert?: Prisma.UserUpsertWithoutWorkspacesInput;
+  connect?: Prisma.UserWhereUniqueInput;
+  update?: Prisma.XOR<
+    Prisma.XOR<
+      Prisma.UserUpdateToOneWithWhereWithoutWorkspacesInput,
+      Prisma.UserUpdateWithoutWorkspacesInput
+    >,
+    Prisma.UserUncheckedUpdateWithoutWorkspacesInput
+  >;
+};
+
 export type UserCreateNestedOneWithoutAccountsInput = {
   create?: Prisma.XOR<
     Prisma.UserCreateWithoutAccountsInput,
@@ -451,30 +510,172 @@ export type UserUpdateOneRequiredWithoutSessionsNestedInput = {
   >;
 };
 
-export type UserCreateNestedOneWithoutBoardsInput = {
-  create?: Prisma.XOR<
-    Prisma.UserCreateWithoutBoardsInput,
-    Prisma.UserUncheckedCreateWithoutBoardsInput
-  >;
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBoardsInput;
-  connect?: Prisma.UserWhereUniqueInput;
+export type UserCreateWithoutOwnedWorkspacesInput = {
+  id?: string;
+  name?: string | null;
+  username?: string | null;
+  email?: string | null;
+  emailVerified?: Date | string | null;
+  image?: string | null;
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput;
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+  workspaces?: Prisma.WorkspaceMemberCreateNestedManyWithoutUserInput;
 };
 
-export type UserUpdateOneRequiredWithoutBoardsNestedInput = {
-  create?: Prisma.XOR<
-    Prisma.UserCreateWithoutBoardsInput,
-    Prisma.UserUncheckedCreateWithoutBoardsInput
+export type UserUncheckedCreateWithoutOwnedWorkspacesInput = {
+  id?: string;
+  name?: string | null;
+  username?: string | null;
+  email?: string | null;
+  emailVerified?: Date | string | null;
+  image?: string | null;
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput;
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+  workspaces?: Prisma.WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput;
+};
+
+export type UserCreateOrConnectWithoutOwnedWorkspacesInput = {
+  where: Prisma.UserWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutOwnedWorkspacesInput,
+    Prisma.UserUncheckedCreateWithoutOwnedWorkspacesInput
   >;
-  connectOrCreate?: Prisma.UserCreateOrConnectWithoutBoardsInput;
-  upsert?: Prisma.UserUpsertWithoutBoardsInput;
-  connect?: Prisma.UserWhereUniqueInput;
-  update?: Prisma.XOR<
-    Prisma.XOR<
-      Prisma.UserUpdateToOneWithWhereWithoutBoardsInput,
-      Prisma.UserUpdateWithoutBoardsInput
-    >,
-    Prisma.UserUncheckedUpdateWithoutBoardsInput
+};
+
+export type UserUpsertWithoutOwnedWorkspacesInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutOwnedWorkspacesInput,
+    Prisma.UserUncheckedUpdateWithoutOwnedWorkspacesInput
   >;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutOwnedWorkspacesInput,
+    Prisma.UserUncheckedCreateWithoutOwnedWorkspacesInput
+  >;
+  where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutOwnedWorkspacesInput = {
+  where?: Prisma.UserWhereInput;
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutOwnedWorkspacesInput,
+    Prisma.UserUncheckedUpdateWithoutOwnedWorkspacesInput
+  >;
+};
+
+export type UserUpdateWithoutOwnedWorkspacesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  emailVerified?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput;
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+  workspaces?: Prisma.WorkspaceMemberUpdateManyWithoutUserNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutOwnedWorkspacesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  emailVerified?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput;
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+  workspaces?: Prisma.WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput;
+};
+
+export type UserCreateWithoutWorkspacesInput = {
+  id?: string;
+  name?: string | null;
+  username?: string | null;
+  email?: string | null;
+  emailVerified?: Date | string | null;
+  image?: string | null;
+  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput;
+  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
+  ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput;
+};
+
+export type UserUncheckedCreateWithoutWorkspacesInput = {
+  id?: string;
+  name?: string | null;
+  username?: string | null;
+  email?: string | null;
+  emailVerified?: Date | string | null;
+  image?: string | null;
+  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput;
+  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput;
+};
+
+export type UserCreateOrConnectWithoutWorkspacesInput = {
+  where: Prisma.UserWhereUniqueInput;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutWorkspacesInput,
+    Prisma.UserUncheckedCreateWithoutWorkspacesInput
+  >;
+};
+
+export type UserUpsertWithoutWorkspacesInput = {
+  update: Prisma.XOR<
+    Prisma.UserUpdateWithoutWorkspacesInput,
+    Prisma.UserUncheckedUpdateWithoutWorkspacesInput
+  >;
+  create: Prisma.XOR<
+    Prisma.UserCreateWithoutWorkspacesInput,
+    Prisma.UserUncheckedCreateWithoutWorkspacesInput
+  >;
+  where?: Prisma.UserWhereInput;
+};
+
+export type UserUpdateToOneWithWhereWithoutWorkspacesInput = {
+  where?: Prisma.UserWhereInput;
+  data: Prisma.XOR<
+    Prisma.UserUpdateWithoutWorkspacesInput,
+    Prisma.UserUncheckedUpdateWithoutWorkspacesInput
+  >;
+};
+
+export type UserUpdateWithoutWorkspacesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  emailVerified?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput;
+  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
+  ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput;
+};
+
+export type UserUncheckedUpdateWithoutWorkspacesInput = {
+  id?: Prisma.StringFieldUpdateOperationsInput | string;
+  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  emailVerified?:
+    | Prisma.NullableDateTimeFieldUpdateOperationsInput
+    | Date
+    | string
+    | null;
+  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
+  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput;
+  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput;
 };
 
 export type UserCreateWithoutAccountsInput = {
@@ -485,7 +686,8 @@ export type UserCreateWithoutAccountsInput = {
   emailVerified?: Date | string | null;
   image?: string | null;
   sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
-  boards?: Prisma.BoardCreateNestedManyWithoutUserInput;
+  ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput;
+  workspaces?: Prisma.WorkspaceMemberCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateWithoutAccountsInput = {
@@ -496,7 +698,8 @@ export type UserUncheckedCreateWithoutAccountsInput = {
   emailVerified?: Date | string | null;
   image?: string | null;
   sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
-  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutUserInput;
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput;
+  workspaces?: Prisma.WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserCreateOrConnectWithoutAccountsInput = {
@@ -539,7 +742,8 @@ export type UserUpdateWithoutAccountsInput = {
     | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
-  boards?: Prisma.BoardUpdateManyWithoutUserNestedInput;
+  ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput;
+  workspaces?: Prisma.WorkspaceMemberUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutAccountsInput = {
@@ -554,7 +758,8 @@ export type UserUncheckedUpdateWithoutAccountsInput = {
     | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
-  boards?: Prisma.BoardUncheckedUpdateManyWithoutUserNestedInput;
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput;
+  workspaces?: Prisma.WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 export type UserCreateWithoutSessionsInput = {
@@ -565,7 +770,8 @@ export type UserCreateWithoutSessionsInput = {
   emailVerified?: Date | string | null;
   image?: string | null;
   accounts?: Prisma.AccountCreateNestedManyWithoutUserInput;
-  boards?: Prisma.BoardCreateNestedManyWithoutUserInput;
+  ownedWorkspaces?: Prisma.WorkspaceCreateNestedManyWithoutOwnerInput;
+  workspaces?: Prisma.WorkspaceMemberCreateNestedManyWithoutUserInput;
 };
 
 export type UserUncheckedCreateWithoutSessionsInput = {
@@ -576,7 +782,8 @@ export type UserUncheckedCreateWithoutSessionsInput = {
   emailVerified?: Date | string | null;
   image?: string | null;
   accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput;
-  boards?: Prisma.BoardUncheckedCreateNestedManyWithoutUserInput;
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedCreateNestedManyWithoutOwnerInput;
+  workspaces?: Prisma.WorkspaceMemberUncheckedCreateNestedManyWithoutUserInput;
 };
 
 export type UserCreateOrConnectWithoutSessionsInput = {
@@ -619,7 +826,8 @@ export type UserUpdateWithoutSessionsInput = {
     | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput;
-  boards?: Prisma.BoardUpdateManyWithoutUserNestedInput;
+  ownedWorkspaces?: Prisma.WorkspaceUpdateManyWithoutOwnerNestedInput;
+  workspaces?: Prisma.WorkspaceMemberUpdateManyWithoutUserNestedInput;
 };
 
 export type UserUncheckedUpdateWithoutSessionsInput = {
@@ -634,87 +842,8 @@ export type UserUncheckedUpdateWithoutSessionsInput = {
     | null;
   image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
   accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput;
-  boards?: Prisma.BoardUncheckedUpdateManyWithoutUserNestedInput;
-};
-
-export type UserCreateWithoutBoardsInput = {
-  id?: string;
-  name?: string | null;
-  username?: string | null;
-  email?: string | null;
-  emailVerified?: Date | string | null;
-  image?: string | null;
-  accounts?: Prisma.AccountCreateNestedManyWithoutUserInput;
-  sessions?: Prisma.SessionCreateNestedManyWithoutUserInput;
-};
-
-export type UserUncheckedCreateWithoutBoardsInput = {
-  id?: string;
-  name?: string | null;
-  username?: string | null;
-  email?: string | null;
-  emailVerified?: Date | string | null;
-  image?: string | null;
-  accounts?: Prisma.AccountUncheckedCreateNestedManyWithoutUserInput;
-  sessions?: Prisma.SessionUncheckedCreateNestedManyWithoutUserInput;
-};
-
-export type UserCreateOrConnectWithoutBoardsInput = {
-  where: Prisma.UserWhereUniqueInput;
-  create: Prisma.XOR<
-    Prisma.UserCreateWithoutBoardsInput,
-    Prisma.UserUncheckedCreateWithoutBoardsInput
-  >;
-};
-
-export type UserUpsertWithoutBoardsInput = {
-  update: Prisma.XOR<
-    Prisma.UserUpdateWithoutBoardsInput,
-    Prisma.UserUncheckedUpdateWithoutBoardsInput
-  >;
-  create: Prisma.XOR<
-    Prisma.UserCreateWithoutBoardsInput,
-    Prisma.UserUncheckedCreateWithoutBoardsInput
-  >;
-  where?: Prisma.UserWhereInput;
-};
-
-export type UserUpdateToOneWithWhereWithoutBoardsInput = {
-  where?: Prisma.UserWhereInput;
-  data: Prisma.XOR<
-    Prisma.UserUpdateWithoutBoardsInput,
-    Prisma.UserUncheckedUpdateWithoutBoardsInput
-  >;
-};
-
-export type UserUpdateWithoutBoardsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  emailVerified?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  accounts?: Prisma.AccountUpdateManyWithoutUserNestedInput;
-  sessions?: Prisma.SessionUpdateManyWithoutUserNestedInput;
-};
-
-export type UserUncheckedUpdateWithoutBoardsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string;
-  name?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  username?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  email?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  emailVerified?:
-    | Prisma.NullableDateTimeFieldUpdateOperationsInput
-    | Date
-    | string
-    | null;
-  image?: Prisma.NullableStringFieldUpdateOperationsInput | string | null;
-  accounts?: Prisma.AccountUncheckedUpdateManyWithoutUserNestedInput;
-  sessions?: Prisma.SessionUncheckedUpdateManyWithoutUserNestedInput;
+  ownedWorkspaces?: Prisma.WorkspaceUncheckedUpdateManyWithoutOwnerNestedInput;
+  workspaces?: Prisma.WorkspaceMemberUncheckedUpdateManyWithoutUserNestedInput;
 };
 
 /**
@@ -724,7 +853,8 @@ export type UserUncheckedUpdateWithoutBoardsInput = {
 export type UserCountOutputType = {
   accounts: number;
   sessions: number;
-  boards: number;
+  ownedWorkspaces: number;
+  workspaces: number;
 };
 
 export type UserCountOutputTypeSelect<
@@ -733,7 +863,8 @@ export type UserCountOutputTypeSelect<
 > = {
   accounts?: boolean | UserCountOutputTypeCountAccountsArgs;
   sessions?: boolean | UserCountOutputTypeCountSessionsArgs;
-  boards?: boolean | UserCountOutputTypeCountBoardsArgs;
+  ownedWorkspaces?: boolean | UserCountOutputTypeCountOwnedWorkspacesArgs;
+  workspaces?: boolean | UserCountOutputTypeCountWorkspacesArgs;
 };
 
 /**
@@ -772,11 +903,21 @@ export type UserCountOutputTypeCountSessionsArgs<
 /**
  * UserCountOutputType without action
  */
-export type UserCountOutputTypeCountBoardsArgs<
+export type UserCountOutputTypeCountOwnedWorkspacesArgs<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
-  where?: Prisma.BoardWhereInput;
+  where?: Prisma.WorkspaceWhereInput;
+};
+
+/**
+ * UserCountOutputType without action
+ */
+export type UserCountOutputTypeCountWorkspacesArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  where?: Prisma.WorkspaceMemberWhereInput;
 };
 
 export type UserSelect<
@@ -792,7 +933,8 @@ export type UserSelect<
     image?: boolean;
     accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>;
     sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
-    boards?: boolean | Prisma.User$boardsArgs<ExtArgs>;
+    ownedWorkspaces?: boolean | Prisma.User$ownedWorkspacesArgs<ExtArgs>;
+    workspaces?: boolean | Prisma.User$workspacesArgs<ExtArgs>;
     _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
   },
   ExtArgs["result"]["user"]
@@ -850,7 +992,8 @@ export type UserInclude<
 > = {
   accounts?: boolean | Prisma.User$accountsArgs<ExtArgs>;
   sessions?: boolean | Prisma.User$sessionsArgs<ExtArgs>;
-  boards?: boolean | Prisma.User$boardsArgs<ExtArgs>;
+  ownedWorkspaces?: boolean | Prisma.User$ownedWorkspacesArgs<ExtArgs>;
+  workspaces?: boolean | Prisma.User$workspacesArgs<ExtArgs>;
   _count?: boolean | Prisma.UserCountOutputTypeDefaultArgs<ExtArgs>;
 };
 export type UserIncludeCreateManyAndReturn<
@@ -870,7 +1013,8 @@ export type $UserPayload<
   objects: {
     accounts: Prisma.$AccountPayload<ExtArgs>[];
     sessions: Prisma.$SessionPayload<ExtArgs>[];
-    boards: Prisma.$BoardPayload<ExtArgs>[];
+    ownedWorkspaces: Prisma.$WorkspacePayload<ExtArgs>[];
+    workspaces: Prisma.$WorkspaceMemberPayload<ExtArgs>[];
   };
   scalars: runtime.Types.Extensions.GetPayloadResult<
     {
@@ -1452,11 +1596,22 @@ export interface Prisma__UserClient<
       >
     | Null
   >;
-  boards<T extends Prisma.User$boardsArgs<ExtArgs> = {}>(
-    args?: Prisma.Subset<T, Prisma.User$boardsArgs<ExtArgs>>,
+  ownedWorkspaces<T extends Prisma.User$ownedWorkspacesArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$ownedWorkspacesArgs<ExtArgs>>,
   ): Prisma.PrismaPromise<
     | runtime.Types.Result.GetResult<
-        Prisma.$BoardPayload<ExtArgs>,
+        Prisma.$WorkspacePayload<ExtArgs>,
+        T,
+        "findMany",
+        GlobalOmitOptions
+      >
+    | Null
+  >;
+  workspaces<T extends Prisma.User$workspacesArgs<ExtArgs> = {}>(
+    args?: Prisma.Subset<T, Prisma.User$workspacesArgs<ExtArgs>>,
+  ): Prisma.PrismaPromise<
+    | runtime.Types.Result.GetResult<
+        Prisma.$WorkspaceMemberPayload<ExtArgs>,
         T,
         "findMany",
         GlobalOmitOptions
@@ -2010,32 +2165,65 @@ export type User$sessionsArgs<
 };
 
 /**
- * User.boards
+ * User.ownedWorkspaces
  */
-export type User$boardsArgs<
+export type User$ownedWorkspacesArgs<
   ExtArgs extends
     runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
 > = {
   /**
-   * Select specific fields to fetch from the Board
+   * Select specific fields to fetch from the Workspace
    */
-  select?: Prisma.BoardSelect<ExtArgs> | null;
+  select?: Prisma.WorkspaceSelect<ExtArgs> | null;
   /**
-   * Omit specific fields from the Board
+   * Omit specific fields from the Workspace
    */
-  omit?: Prisma.BoardOmit<ExtArgs> | null;
+  omit?: Prisma.WorkspaceOmit<ExtArgs> | null;
   /**
    * Choose, which related nodes to fetch as well
    */
-  include?: Prisma.BoardInclude<ExtArgs> | null;
-  where?: Prisma.BoardWhereInput;
+  include?: Prisma.WorkspaceInclude<ExtArgs> | null;
+  where?: Prisma.WorkspaceWhereInput;
   orderBy?:
-    | Prisma.BoardOrderByWithRelationInput
-    | Prisma.BoardOrderByWithRelationInput[];
-  cursor?: Prisma.BoardWhereUniqueInput;
+    | Prisma.WorkspaceOrderByWithRelationInput
+    | Prisma.WorkspaceOrderByWithRelationInput[];
+  cursor?: Prisma.WorkspaceWhereUniqueInput;
   take?: number;
   skip?: number;
-  distinct?: Prisma.BoardScalarFieldEnum | Prisma.BoardScalarFieldEnum[];
+  distinct?:
+    | Prisma.WorkspaceScalarFieldEnum
+    | Prisma.WorkspaceScalarFieldEnum[];
+};
+
+/**
+ * User.workspaces
+ */
+export type User$workspacesArgs<
+  ExtArgs extends
+    runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs,
+> = {
+  /**
+   * Select specific fields to fetch from the WorkspaceMember
+   */
+  select?: Prisma.WorkspaceMemberSelect<ExtArgs> | null;
+  /**
+   * Omit specific fields from the WorkspaceMember
+   */
+  omit?: Prisma.WorkspaceMemberOmit<ExtArgs> | null;
+  /**
+   * Choose, which related nodes to fetch as well
+   */
+  include?: Prisma.WorkspaceMemberInclude<ExtArgs> | null;
+  where?: Prisma.WorkspaceMemberWhereInput;
+  orderBy?:
+    | Prisma.WorkspaceMemberOrderByWithRelationInput
+    | Prisma.WorkspaceMemberOrderByWithRelationInput[];
+  cursor?: Prisma.WorkspaceMemberWhereUniqueInput;
+  take?: number;
+  skip?: number;
+  distinct?:
+    | Prisma.WorkspaceMemberScalarFieldEnum
+    | Prisma.WorkspaceMemberScalarFieldEnum[];
 };
 
 /**

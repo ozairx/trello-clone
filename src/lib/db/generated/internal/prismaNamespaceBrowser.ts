@@ -55,6 +55,8 @@ export const AnyNull = runtime.AnyNull;
 
 export const ModelName = {
   User: "User",
+  Workspace: "Workspace",
+  WorkspaceMember: "WorkspaceMember",
   Account: "Account",
   Session: "Session",
   VerificationToken: "VerificationToken",
@@ -90,6 +92,28 @@ export const UserScalarFieldEnum = {
 
 export type UserScalarFieldEnum =
   (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum];
+
+export const WorkspaceScalarFieldEnum = {
+  id: "id",
+  name: "name",
+  ownerId: "ownerId",
+  createdAt: "createdAt",
+  updatedAt: "updatedAt",
+} as const;
+
+export type WorkspaceScalarFieldEnum =
+  (typeof WorkspaceScalarFieldEnum)[keyof typeof WorkspaceScalarFieldEnum];
+
+export const WorkspaceMemberScalarFieldEnum = {
+  id: "id",
+  workspaceId: "workspaceId",
+  userId: "userId",
+  role: "role",
+  createdAt: "createdAt",
+} as const;
+
+export type WorkspaceMemberScalarFieldEnum =
+  (typeof WorkspaceMemberScalarFieldEnum)[keyof typeof WorkspaceMemberScalarFieldEnum];
 
 export const AccountScalarFieldEnum = {
   id: "id",
@@ -131,7 +155,7 @@ export type VerificationTokenScalarFieldEnum =
 export const BoardScalarFieldEnum = {
   id: "id",
   title: "title",
-  userId: "userId",
+  workspaceId: "workspaceId",
   createdAt: "createdAt",
   updatedAt: "updatedAt",
 } as const;
