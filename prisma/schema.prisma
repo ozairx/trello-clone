@@ -1,6 +1,6 @@
 generator client {
   provider   = "prisma-client"
-  output = "../src/lib/db/generated/"
+  output     = "../src/lib/db/generated/"
   engineType = "client"
 }
 
@@ -9,17 +9,44 @@ datasource db {
 }
 
 model User {
-  id              String    @id @default(cuid())
+  id              String            @id @default(cuid())
   name            String?
-  username        String?   @unique
-  email           String?   @unique
-  emailVerified   DateTime? @map("email_verified")
+  username        String?           @unique
+  email           String?           @unique
+  emailVerified   DateTime?         @map("email_verified")
   image           String?
   accounts        Account[]
   sessions        Session[]
-  boards          Board[]
+  ownedWorkspaces Workspace[]       @relation("OwnedWorkspaces")
+  workspaces      WorkspaceMember[]
 
   @@map("user")
+}
+
+model Workspace {
+  id        String            @id @default(cuid())
+  name      String @unique
+  ownerId   String            @map("owner_id")
+  owner     User              @relation("OwnedWorkspaces", fields: [ownerId], references: [id], onDelete: Cascade)
+  boards    Board[]
+  members   WorkspaceMember[]
+  createdAt DateTime          @default(now()) @map("created_at")
+  updatedAt DateTime          @updatedAt @map("updated_at")
+
+  @@map("workspace")
+}
+
+model WorkspaceMember {
+  id          String    @id @default(cuid())
+  workspaceId String    @map("workspace_id")
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  userId      String    @map("user_id")
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  role        String    // "ADMIN" or "MEMBER"
+  createdAt   DateTime  @default(now()) @map("created_at")
+
+  @@unique([workspaceId, userId])
+  @@map("workspace_member")
 }
 
 model Account {
@@ -35,8 +62,7 @@ model Account {
   scope             String?
   id_token          String? @db.Text
   session_state     String?
-
-  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
 
   @@unique([provider, providerAccountId])
   @@map("account")
@@ -62,16 +88,16 @@ model VerificationToken {
 }
 
 model Board {
-  id        String   @id @default(cuid())
-  title     String
-  userId    String   @map("user_id")
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
-  lists     List[]
-
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt @map("updated_at")
+  id          String    @id @default(cuid())
+  title       String
+  workspaceId String    @map("workspace_id")
+  workspace   Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+  lists       List[]
+  createdAt   DateTime  @default(now()) @map("created_at")
+  updatedAt   DateTime  @updatedAt @map("updated_at")
 
   @@map("board")
+  @@unique([title, workspaceId])
 }
 
 model List {
